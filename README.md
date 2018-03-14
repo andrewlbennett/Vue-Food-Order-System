@@ -36,9 +36,8 @@ npm run dev
 ### Roadmap
 - [ ] Create discount function
 - [x] Create tip button functions
-- [ ] Create menu items
-- [ ] Create add menu to item list functions
-- [ ] Create grand total functions
+- [x] Create menu item temporary buttons
+- [x] Create grand total function
 - [ ] Work on style
 - [ ] Convert component level CSS into SCSS
 - [ ] Create basic branding
