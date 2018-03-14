@@ -3,7 +3,7 @@
         <!-- Order Number -->
         <div class="order-number">
             <h4>Order Number</h4>
-            <h4>#876</h4>
+            <h4>#{{ orderNumber }}</h4>
         </div>
         <!-- /Order Number -->
         <!-- Receipt Items -->
@@ -14,6 +14,13 @@
             </li>
         </ul>
         <!-- /Receipt Items -->
+
+        <!-- Add Item Test -->
+        <div class="test">
+            <button v-on:click="addItem('cheeseburger', 6.99)" class="btn">Add Cheeseburger - 6.99</button>
+        </div>
+        <!-- /Add Item Test -->
+
         <!-- Subtotals -->
         <ul class="subtotals">
             <li>
@@ -77,7 +84,8 @@ export default {
             salesTaxPerc: .025,
             tipPerc: 0,
             discount: 0,
-            grandTotal: 0
+            grandTotal: 0,
+            orderNumber: 876
         }
     },
     computed: {
@@ -110,6 +118,9 @@ export default {
     methods: {
         addTip(value) {
             return this.tipPerc = value;
+        },
+        addItem(name, price) {
+            return this.items.push({ name: name, price: price });
         }
     },
     filters: {
@@ -176,11 +187,11 @@ export default {
     }
     .tip-controls > button {
         flex: 1 1 auto;
-        padding: 0.5rem 0;
+        padding: 1rem 0;
         font-size: 0.8rem;
         background-color: rgb(230, 230, 230);
         color: #363636;
-        font-weight: 700;
+        font-weight: 900;
         outline: none!important;
         border: none!important;
         margin-right: 6px;

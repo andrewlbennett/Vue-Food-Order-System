@@ -1,6 +1,9 @@
 <template>
     <div id="menu-items">
-        <p>menu</p>
+        <button class="btn">Add Cheeseburger - 6.99</button>
+        <button class="btn">Add Fries - 2.39</button>
+        <button class="btn">Add Drink - 1.29</button>
+        <button class="btn">Add Cheesecake - 3.99</button>
     </div>
 </template>
 
