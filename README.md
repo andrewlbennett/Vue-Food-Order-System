@@ -2,6 +2,7 @@
 This is a vue front-end for a food ordering system.
 
 ### Mockup
+![alt text](https://raw.githubusercontent.com/meadio/Vue-Food-Order-System/master/mockup.png)
 
 ### Knowledge Required
 * HTML
