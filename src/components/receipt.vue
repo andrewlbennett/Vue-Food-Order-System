@@ -9,8 +9,8 @@
         <!-- Receipt Items -->
         <ul class="receipt-items">
             <li v-for="item in items" class="receipt-item">
-                <p>{{item.name}}</p>
-                <p>${{item.price}}</p>
+                <p>{{ item.name | uppercase }}</p>
+                <p>${{ item.price }}</p>
             </li>
         </ul>
         <!-- /Receipt Items -->
@@ -25,38 +25,34 @@
                 <p>{{ getSalesTax }}%</p>
             </li>
             <li>
+                <p>Subtotal:</p>
+                <p>${{ getSubTotal }}</p>
+            </li>
+            <li>
                 <p>Discount:</p>
-                <p>0%</p>
+                <p>{{ discount }}</p>
             </li>
             <li>
                 <p>Tip:</p>
-                <p>0%</p>
-            </li>
-            <li>
-                <p>Subtotal:</p>
-                <p>${{ getSubTotal }}</p>
+                <p>({{ getTipPerc }}%) = ${{ getTipAmt }}</p>
             </li>
         </ul>
         <!-- /Subtotals -->
         <!-- Tips -->
         <div class="tips">
             <div class="tip-controls">
-                <button class="btn is-primary active">0</button>
-                <button class="btn is-primary">5%</button>
-                <button class="btn is-primary">10%</button>
-                <button class="btn is-primary">15%</button>
-                <button class="btn is-primary">20%</button>
-                <button class="btn is-primary">25%</button>
+                <button v-on:click="addTip(0)" class="btn is-primary">0</button>
+                <button v-on:click="addTip(.1)" class="btn is-primary">10%</button>
+                <button v-on:click="addTip(.15)" class="btn is-primary">15%</button>
+                <button v-on:click="addTip(.2)" class="btn is-primary">20%</button>
+                <button v-on:click="addTip(.25)" class="btn is-primary">25%</button>
             </div>
-            <!-- <p><b>15%:</b> ${{ getSubTotal | tip15 }} = ${{ getTipTotal15 }}</p>
-            <p><b>20%:</b> ${{ getSubTotal | tip20 }} = ${{ getTipTotal20 }}</p>
-            <p><b>25%:</b> ${{ getSubTotal | tip25 }} = ${{ getTipTotal25 }}</p> -->
         </div>
         <!-- /Tips -->
         <!-- Grand Total -->
         <div class="grand-total">
             <span>Total</span>
-            <span>$45.67</span>
+            <span>${{ getGrandTotal }}</span>
         </div>
         <!-- /Grand Total -->
         <!-- Checkout -->
@@ -78,7 +74,10 @@ export default {
                 {name:'drink', price: 1.58},
                 {name:'cheesecake', price: 4.99}
             ],
-            salesTaxPerc: .025 // Sales Tax Percentage
+            salesTaxPerc: .025,
+            tipPerc: 0,
+            discount: 0,
+            grandTotal: 0
         }
     },
     computed: {
@@ -98,23 +97,19 @@ export default {
         getSalesTax: function() {
             return (this.salesTaxPerc * 100).toFixed(1);
         },
-        getTipTotal15: function() {
-            let subTotal = this.getSubTotal;
-            let tipTotal = (this.getSubTotal * .15);
-            let total = (Number(tipTotal) + Number(subTotal)).toFixed(2);
-            return total;
+        getTipPerc: function() {
+            return this.tipPerc * 100;
         },
-        getTipTotal20: function() {
-            let subTotal = this.getSubTotal;
-            let tipTotal = (this.getSubTotal * .2);
-            let total = (Number(tipTotal) + Number(subTotal)).toFixed(2);
-            return total;
+        getTipAmt() {
+            return (this.getSubTotal * this.tipPerc).toFixed(2);
         },
-        getTipTotal25: function() {
-            let subTotal = this.getSubTotal;
-            let tipTotal = (this.getSubTotal * .25);
-            let total = (Number(tipTotal) + Number(subTotal)).toFixed(2);
-            return total;
+        getGrandTotal() {
+            return (Number(this.getTipAmt) + Number(this.getSubTotal)).toFixed(2);
+        }
+    },
+    methods: {
+        addTip(value) {
+            return this.tipPerc = value;
         }
     },
     filters: {
@@ -126,6 +121,9 @@ export default {
         },
         tip25(value) {
             return (value * .25).toFixed(2);
+        },
+        uppercase(value) {
+            return value.charAt(0).toUpperCase() + value.slice(1);
         }
     }
 }
@@ -147,7 +145,7 @@ export default {
         display: flex;
         justify-content: space-between;
         padding: 1rem 2rem 1rem;
-        border-bottom: 1px solid #DBDDDE;
+        border-bottom: 2px dashed #F4F6F8;
     }
     .order-number h4 {
         margin: 0;
@@ -163,7 +161,7 @@ export default {
     }
     .subtotals {
         padding: 1.5rem 2rem 0.5rem;
-        border-top: 1px solid #DBDDDE;
+        border-top: 2px dashed #F4F6F8;
     }
     .subtotals > li {
         display: flex;
@@ -210,7 +208,7 @@ export default {
         display: flex;
         justify-content: space-between;
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
     .checkout {
         padding: 2rem;
@@ -220,5 +218,8 @@ export default {
         background-color: rgb(15, 190, 94);
         color: white;
         text-transform: uppercase;
+    }
+    .checkout:hover {
+        cursor: pointer;
     }
 </style>

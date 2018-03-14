@@ -29,7 +29,7 @@ npm run dev
 
 ### Roadmap
 - [ ] Create discount function
-- [ ] Create tip button functions
+- [x] Create tip button functions
 - [ ] Create menu items
 - [ ] Create add menu to item list functions
 - [ ] Create grand total functions
