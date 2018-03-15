@@ -38,6 +38,7 @@ npm run dev
 - [x] Create tip button functions
 - [x] Create menu item temporary buttons
 - [x] Create grand total function
+- [ ] Create customization when selecting item - Example: No Onion
 - [ ] Work on style
 - [ ] Convert component level CSS into SCSS
 - [ ] Create basic branding
