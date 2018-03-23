@@ -159,6 +159,11 @@ export default {
     #receipt p {
         margin: 0;
     }
+    #menu-items > button {
+        padding: 1rem;
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
     .order-number {
         display: flex;
         justify-content: space-between;
